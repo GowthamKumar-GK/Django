@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Smart Recipe Suggestion System</title>
+</head>
+<body>
+    <h1>Smart Recipe Suggestion System</h1>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Get Recipes</button>
+    </form>
+
+    {% if recipes %}
+        <h2>Matching Recipes:</h2>
+        <ul>
+            {% for recipe in recipes %}
+                <li>
+                    <strong>{{ recipe.name }}</strong><br>
+                    {{ recipe.instructions }}
+                </li>
+            {% empty %}
+                <p>No matching recipes found.</p>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</body>
+</html>
