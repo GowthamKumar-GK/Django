@@ -1,28 +1,103 @@
+<!-- templates/home.html -->
 <!DOCTYPE html>
 <html>
 <head>
     <title>Smart Recipe Suggestion System</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(to right, #f9f9f9, #e6f7ff);
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 90%;
+            max-width: 700px;
+            margin: 60px auto;
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #007acc;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        form {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        input[type="text"] {
+            width: 80%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            font-size: 16px;
+        }
+        button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            background-color: #007acc;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #005e99;
+        }
+        h2 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            background: #e0f3ff;
+            padding: 12px;
+            margin: 10px 0;
+            border-left: 5px solid #007acc;
+            border-radius: 5px;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #999;
+            font-size: 14px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Smart Recipe Suggestion System</h1>
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Get Recipes</button>
-    </form>
+    <div class="container">
+        <h1>Smart Recipe Suggestion</h1>
+        <form method="POST">
+            {% csrf_token %}
+            <input type="text" name="ingredients" placeholder="Enter ingredients you have (e.g., rice, tomato, egg)">
+            <br>
+            <button type="submit">Suggest Recipes</button>
+        </form>
 
-    {% if recipes %}
-        <h2>Matching Recipes:</h2>
-        <ul>
-            {% for recipe in recipes %}
-                <li>
-                    <strong>{{ recipe.name }}</strong><br>
-                    {{ recipe.instructions }}
-                </li>
-            {% empty %}
-                <p>No matching recipes found.</p>
-            {% endfor %}
-        </ul>
-    {% endif %}
+       {% if recipes %}
+    <h2>Suggested Recipes:</h2>
+    <ul>
+        {% for recipe in recipes %}
+            <li>
+                <strong>{{ recipe.name }}</strong><br>
+                <small>Ingredients: {{ recipe.ingredients }}</small><br>
+                <small><strong>How to make:</strong> {{ recipe.instructions }}</small>
+            </li>
+        {% endfor %}
+    </ul>
+{% elif request.method == 'POST' %}
+    <h2>No recipes found with the given ingredients.</h2>
+{% endif %}
+
+
+        <div class="footer">Made with ❤️ using Django</div>
+    </div>
 </body>
 </html>

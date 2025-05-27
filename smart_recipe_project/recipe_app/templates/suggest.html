@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Smart Recipe Suggestion System</title>
+</head>
+<body>
+    <h1>Smart Recipe Suggestion System</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Get Recipes</button>
+    </form>
+
+    {% if suggestions %}
+        <h2>Suggested Recipes:</h2>
+        <ul>
+            {% for recipe in suggestions %}
+                <li>{{ recipe.name }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</body>
+</html>
