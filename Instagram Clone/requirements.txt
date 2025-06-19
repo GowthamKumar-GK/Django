@@ -38,3 +38,5 @@ torchvision==0.22.0
 typing_extensions==4.13.2
 tzdata==2025.1
 urllib3==2.4.0
+gunicorn
+django
